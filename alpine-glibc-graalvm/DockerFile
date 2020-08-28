@@ -1,0 +1,13 @@
+FROM frolvlad/alpine-glibc:latest
+
+ENV GRAALVM_VERSION=20.2.0 \
+    JAVA_VERSION=java8 \
+    JAVA_HOME=/usr/lib/jvm/graalvm-ce-java8-20.2.0 \
+    PATH=/usr/lib/jvm/graalvm-ce-java8-20.2.0/bin:$PATH
+
+RUN apk --no-cache add wget
+
+RUN mkdir /usr/lib/jvm; \
+    wget "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-$GRAALVM_VERSION/graalvm-ce-$JAVA_VERSION-linux-amd64-$GRAALVM_VERSION.tar.gz"; \
+    tar -zxC /usr/lib/jvm -f graalvm-ce-${JAVA_VERSION}-linux-amd64-${GRAALVM_VERSION}.tar.gz; \
+    rm -f graalvm-ce-${GRAALVM_VERSION}-linux-amd64.tar.gz
